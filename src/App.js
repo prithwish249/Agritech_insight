@@ -20,7 +20,6 @@ function App() {
         {/* Add responsive styles for your components */}
       
         <style jsx>{`
-          /* Example responsive styles for the main content */
           .content {
             padding: 20px;
           }

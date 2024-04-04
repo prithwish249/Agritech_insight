@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { countries } from "countries-list"; // Import countries-list package
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -54,19 +55,19 @@ const Weather = () => {
   }, []);
 
   return (
-    <div className="  min-h-screen flex items-center justify-center relative">
+    <div className="h-[645px] flex items-center justify-center relative">
       <video
         autoPlay
         loop
         muted
-        className="absolute opacity-30 top-0 left-0 w-full h-full object-cover "
+        className="absolute opacity-30 top-0 left-0 w-full h-full object-cover"
       >
         <source src="/background-video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="bg-gray-200 m-[10px] border border-black p-6 rounded-lg  text-center">
-        <h1 className=" text-2xl md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-4">
+      <div className="bg-gray-200 m-[10px] border border-black p-6 rounded-lg text-center">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-4">
           Weather Information
         </h1>
 
@@ -80,26 +81,26 @@ const Weather = () => {
               Location: {weatherData.name}
             </h2>
             <h2 className="text-xl font-semibold text-green-600 mb-2">
-              Country: {weatherData.sys.country}
+              Country: {countries[weatherData.sys.country]?.name || 'Unknown'}
             </h2>
             <ul className="list-disc">
               <li className="text-black font-semibold text-lg mb-2">
                 Weather: {weatherData.weather[0].description}
               </li>
-              <li className="text-black  font-semibold text-lg mb-2">
+              <li className="text-black font-semibold text-lg mb-2">
                 Temperature: {(weatherData.main.temp - 273.15).toFixed(3)}°C
               </li>
-              <li className="text-black font-semibold  text-lg mb-2">
+              <li className="text-black font-semibold text-lg mb-2">
                 Humidity: {weatherData.main.humidity}%
               </li>
-              <li className="text-black  font-semibold text-lg mb-2">
+              <li className="text-black font-semibold text-lg mb-2">
                 Wind Speed: {(weatherData.wind.speed / 1000).toFixed(3)} Km/s
               </li>
-              <li className="text-black font-semibold  text-lg mb-2">
+              <li className="text-black font-semibold text-lg mb-2">
                 Probability of Rain:{" "}
                 {weatherData.rain ? weatherData.rain["1h"] || 0 : 0} mm/hr
               </li>
-              <li className="text-black  font-semibold text-lg mb-2">
+              <li className="text-black font-semibold text-lg mb-2">
                 Probability of Storm:{" "}
                 {weatherData.weather[0].main === "Thunderstorm" ? "Yes" : "No"}
               </li>

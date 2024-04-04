@@ -60,9 +60,9 @@ const DiseasePrediction = () => {
   };
 
   return (
-    <div className="bg-blue-200  min-h-screen flex items-center justify-center">
-      <div className="bg-white p-6 border-2 border-green-500  rounded-lg shadow-lg w-[80%] max-w-md">
-        <h2 className=" lg:text-2xl  md:text-2xl sm:text-xl xl:text-2xl font-semibold mb-4 text-center">
+    <div className="bg-blue-200 h-[645px] flex items-center justify-center ">
+      <div className="bg-white p-6 border-2 border-green-500 rounded-lg shadow-lg w-[80%] max-w-md">
+        <h2 className="lg:text-2xl md:text-2xl sm:text-xl xl:text-2xl font-semibold mb-4 text-center">
           Plant Disease Prediction
         </h2>
         <input
@@ -72,7 +72,7 @@ const DiseasePrediction = () => {
           className="w-full xl:pl-[100px] lg:pl-[100px] md:pl-[70px] sm:pl-[70px] min-pl-[60px] mb-4"
         />
         <button
-          className="bg-blue-500 border border-black  hover:bg-blue-600  text-white p-3 rounded-lg w-full"
+          className="bg-blue-500 border border-black hover:bg-blue-600 text-white p-2 rounded-lg w-full"
           onClick={handlePrediction}
           disabled={isLoading}
         >
