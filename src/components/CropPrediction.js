@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const CropPrediction = () => {
   const [ph, setPh] = useState("");
   const [nitrogen, setNitrogen] = useState("");
@@ -9,13 +9,39 @@ const CropPrediction = () => {
   const [rainfall, setRainfall] = useState(""); // New input state for rainfall
   const [temperature, setTemperature] = useState(""); // New input state for temperature
   const [cropResult, setCropResult] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    // You can implement your crop prediction logic here.
-    // For the sake of this example, we'll simply set a result.
-    const result = "Wheat";
+  const handleSubmit = async () => {
+    try {
+      // Construct the JSON data object
+      const data = {
+        N: nitrogen,
+        P: phosphorus,
+        K: potassium,
+        temperature: temperature,
+        humidity: hydration,
+        ph: ph,
+        rainfall: rainfall,
+      };
 
-    setCropResult(result);
+      // Make a POST request to the Flask API endpoint
+      const response = await axios.post(
+        "https://crop-prediction-api-h3sn.onrender.com/predict",
+        data
+      );
+
+      // Set the predicted crop result received from the API response
+      setCropResult(response.data.predicted_label);
+
+      // Clear any previous errors
+      setError("");
+    } catch (error) {
+      // Handle error and set error state
+      setError(
+        "An error occurred while processing your request. Please try again."
+      );
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -146,10 +172,20 @@ const CropPrediction = () => {
           </div>
         </div>
       </div>
-      {cropResult && (
+      {!error && cropResult && (
         <div className="mt-4">
-          <p className="text-center text-xl font-semibold text-green-700">
-            Recommended Crop: {cropResult}
+          <p className="text-center text-xl font-bold font-mono text-green-700">
+            Recommended Crop:{" "}
+            {cropResult.charAt(0).toUpperCase() + cropResult.slice(1)}
+          </p>
+        </div>
+      )}
+
+      {/* Render error message if there is an error */}
+      {error && (
+        <div className="mt-4">
+          <p className="text-center font-mono font-bold text-red-500">
+            {error}
           </p>
         </div>
       )}
