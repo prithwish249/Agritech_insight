@@ -67,47 +67,47 @@ const Weather = () => {
       </video>
 
       <div className="bg-gray-200 m-[10px] border border-black p-6 rounded-lg text-center">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-4">
+        <h1 className="text-2xl  font-mono md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-4">
           Weather Information
         </h1>
 
         {loading ? (
-          <p className="text-black text-lg">Loading weather data...</p>
+          <p className="text-black font-mono  text-lg">Loading weather data...</p>
         ) : error ? (
           <p className="text-red-500 text-lg">{error}</p>
         ) : weatherData ? (
           <div className="p-[10px]">
-            <h2 className="text-xl font-semibold text-green-600 mb-2">
+            <h2 className="text-xl font-mono font-bold text-green-700 mb-2">
               Location: {weatherData.name}
             </h2>
-            <h2 className="text-xl font-semibold text-green-600 mb-2">
+            <h2 className="text-xl  font-mono font-bold text-green-700 mb-2">
               Country: {countries[weatherData.sys.country]?.name || 'Unknown'}
             </h2>
             <ul className="list-disc">
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black font-mono font-semibold text-lg mb-2">
                 Weather: {weatherData.weather[0].description}
               </li>
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black font-mono font-semibold text-lg mb-2">
                 Temperature: {(weatherData.main.temp - 273.15).toFixed(3)}°C
               </li>
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black font-mono font-semibold text-lg mb-2">
                 Humidity: {weatherData.main.humidity}%
               </li>
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black font-mono font-semibold text-lg mb-2">
                 Wind Speed: {(weatherData.wind.speed / 1000).toFixed(3)} Km/s
               </li>
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black  font-mono font-semibold text-lg mb-2">
                 Probability of Rain:{" "}
                 {weatherData.rain ? weatherData.rain["1h"] || 0 : 0} mm/hr
               </li>
-              <li className="text-black font-semibold text-lg mb-2">
+              <li className="text-black  font-mono font-semibold text-lg mb-2">
                 Probability of Storm:{" "}
                 {weatherData.weather[0].main === "Thunderstorm" ? "Yes" : "No"}
               </li>
             </ul>
           </div>
         ) : (
-          <p className="text-red-500 text-lg">Failed to fetch weather data.</p>
+          <p className="text-red-500 font-mono text-lg">Failed to fetch weather data.</p>
         )}
       </div>
     </div>

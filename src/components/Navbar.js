@@ -76,10 +76,10 @@ const Navbar = () => {
             </li>
             <li className="text-center">
               <Link
-                to="/disease-prediction"
+                to="/fertilizer-prediction"
                 className="block text-blue-700 font-semibold text-sm px-4 py-2 hover:bg-blue-100"
               >
-                Disease
+                Fertilizer
               </Link>
             </li>
           </ul>
@@ -103,10 +103,10 @@ const Navbar = () => {
               Crop
             </Link>
             <Link
-              to="/disease-prediction"
+              to="/fertilizer-prediction"
               className="text-white font-semibold text-lg md:mr-4 bg-green-500 hover:bg-green-400 hover:text-white px-4 py-2 rounded-lg transition duration-300"
             >
-              Disease
+              Fertilizer
             </Link>
           </div>
         </div>

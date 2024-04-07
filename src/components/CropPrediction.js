@@ -46,10 +46,10 @@ const CropPrediction = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-semibold text-center  mb-4">
+      <h1 className="text-3xl  font-mono font-semibold text-center  mb-4">
         CROP PREDICTION
       </h1>
-      <div className="bg-blue-100   border border-blue-700 p-6 rounded-lg shadow-lg">
+      <div className="bg-blue-200   border border-blue-700 p-6 rounded-lg shadow-lg">
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="ph">
@@ -164,7 +164,7 @@ const CropPrediction = () => {
           </div>
           <div className="col-span-2">
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg w-[60%] sm:w-64 mx-auto block"
+              className="bg-blue-500 border border-black hover:bg-blue-600 text-white p-3 rounded-lg w-[60%] sm:w-64 mx-auto block"
               onClick={handleSubmit}
             >
               Submit
