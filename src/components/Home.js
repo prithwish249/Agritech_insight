@@ -52,13 +52,13 @@ const Home = () => {
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold animate__animated animate__fadeIn text-gray-900">
             Agritech Insight
           </h1>
-          <div className="mt-4 flex-wrap md:text-sm sm:text-sm lg:text-lg font-semibold text-gray-900">
+          <div className="mt-4 font-serif text-justify  flex-wrap md:text-sm sm:text-sm lg:text-lg font-semibold text-gray-900">
             <p>
               Welcome to Agritech Insight, your trusted source for agricultural
               information and innovation. Our vision is to revolutionize the
               agricultural industry through technology and sustainable
               practices.
-              <h1 className="text-blue-700 md:text-sm sm:text-sm lg:text-lg font-bold">
+              <h1 className="text-blue-700 mt-2  md:text-sm sm:text-sm lg:text-lg font-bold">
                 Join us in shaping the future of farming ......
               </h1>
             </p>

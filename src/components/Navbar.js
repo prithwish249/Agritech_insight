@@ -24,6 +24,16 @@ const Navbar = () => {
   return (
     <nav className="bg-blue-900 border border-b-white p-4 sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
+        <div className="flex items-center text-white font-mono">
+          <img
+            src="agritech.jpg"
+            alt="Agritech Icon"
+            className="mr-2 rounded-full"
+            style={{ height: "30px", width: "30px" }}
+          />
+          Agritech Insight
+        </div>
+
         <div className="flex items-center">
           <button
             className="text-white md:hidden mr-4"
@@ -110,6 +120,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
+
         <div className="flex items-center">
           <div className="bg-white rounded-xl p-[0.3rem] flex items-center mr-4">
             <input

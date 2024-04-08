@@ -66,13 +66,15 @@ const Weather = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="bg-gray-200 m-[10px] border border-black p-6 rounded-lg text-center">
-        <h1 className="text-2xl  font-mono md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-4">
+      <div className="bg-gray-200 m-[10px] border border-black px-6 pt-3 pb-2 rounded-lg text-center" >
+        <h1 className="text-2xl  font-mono md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-2">
           Weather Information
         </h1>
 
         {loading ? (
-          <p className="text-black font-mono  text-lg">Loading weather data...</p>
+          <p className="text-green-500 font-mono  text-lg">
+            Loading weather data...
+          </p>
         ) : error ? (
           <p className="text-red-500 text-lg">{error}</p>
         ) : weatherData ? (
@@ -80,15 +82,37 @@ const Weather = () => {
             <h2 className="text-xl font-mono font-bold text-green-700 mb-2">
               Location: {weatherData.name}
             </h2>
-            <h2 className="text-xl  font-mono font-bold text-green-700 mb-2">
-              Country: {countries[weatherData.sys.country]?.name || 'Unknown'}
+            <h2 className="text-xl  font-mono font-bold text-green-700 mb-1">
+              Country: {countries[weatherData.sys.country]?.name || "Unknown"}
             </h2>
-            <ul className="list-disc">
+            <div className="flex  rounded-xl  justify-center items-center">
+              <img
+                src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                alt="Weather Icon"
+              />
+            </div>
+
+            <ul className="list-disc text-left">
               <li className="text-black font-mono font-semibold text-lg mb-2">
-                Weather: {weatherData.weather[0].description}
+                Weather: {weatherData.weather[0].main}
               </li>
               <li className="text-black font-mono font-semibold text-lg mb-2">
                 Temperature: {(weatherData.main.temp - 273.15).toFixed(3)}°C
+              </li>
+              <li className="text-black font-mono font-semibold text-lg mb-2">
+                Feels Like: {(weatherData.main.feels_like - 273.15).toFixed(3)}
+                °C
+              </li>
+              <li className="text-black font-mono font-semibold text-lg mb-2">
+                Max Temperature:{" "}
+                {(weatherData.main.temp_max - 273.15).toFixed(3)}°C
+              </li>
+              <li className="text-black font-mono font-semibold text-lg mb-2">
+                Min Temperature:{" "}
+                {(weatherData.main.temp_min - 273.15).toFixed(3)}°C
+              </li>
+              <li className="text-black font-mono font-semibold text-lg mb-2">
+                Air pressure: {weatherData.main.pressure} mb
               </li>
               <li className="text-black font-mono font-semibold text-lg mb-2">
                 Humidity: {weatherData.main.humidity}%
@@ -98,7 +122,9 @@ const Weather = () => {
               </li>
               <li className="text-black  font-mono font-semibold text-lg mb-2">
                 Probability of Rain:{" "}
-                {weatherData.rain ? weatherData.rain["1h"] || 0 : 0} mm/hr
+                {weatherData.weather[0].main === "Rain"
+                  ? weatherData.weather[0].description
+                  : "No"}
               </li>
               <li className="text-black  font-mono font-semibold text-lg mb-2">
                 Probability of Storm:{" "}
@@ -107,7 +133,9 @@ const Weather = () => {
             </ul>
           </div>
         ) : (
-          <p className="text-red-500 font-mono text-lg">Failed to fetch weather data.</p>
+          <p className="text-red-500 font-mono text-lg">
+            Failed to fetch weather data.
+          </p>
         )}
       </div>
     </div>
