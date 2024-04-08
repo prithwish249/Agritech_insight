@@ -6,6 +6,13 @@ const Weather = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Function to convert wind direction from degrees to direction code
+  const getWindDirection = (degrees) => {
+    const directions = ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"];
+    const index = Math.round((degrees % 360) / 45);
+    return directions[index];
+  };
+
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -66,7 +73,7 @@ const Weather = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="bg-gray-200 m-[10px] border border-black px-6 pt-3 pb-2 rounded-lg text-center" >
+      <div className="bg-gray-200 m-[10px] border border-black px-6 pt-2  rounded-lg text-center">
         <h1 className="text-2xl  font-mono md:text-3xl lg:text-4xl font-semibold text-blue-500 mb-2">
           Weather Information
         </h1>
@@ -82,7 +89,7 @@ const Weather = () => {
             <h2 className="text-xl font-mono font-bold text-green-700 mb-2">
               Location: {weatherData.name}
             </h2>
-            <h2 className="text-xl  font-mono font-bold text-green-700 mb-1">
+            <h2 className="text-xl  font-mono font-bold text-green-700 ">
               Country: {countries[weatherData.sys.country]?.name || "Unknown"}
             </h2>
             <div className="flex  rounded-xl  justify-center items-center">
@@ -98,6 +105,9 @@ const Weather = () => {
               </li>
               <li className="text-black font-mono font-semibold text-lg mb-2">
                 Temperature: {(weatherData.main.temp - 273.15).toFixed(3)}°C
+              </li>
+              <li className="text-black font-mono font-semibold text-lg mb-2">
+                Wind Direction: {weatherData.wind && getWindDirection(weatherData.wind.deg)}
               </li>
               <li className="text-black font-mono font-semibold text-lg mb-2">
                 Feels Like: {(weatherData.main.feels_like - 273.15).toFixed(3)}
