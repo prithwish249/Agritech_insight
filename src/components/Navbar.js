@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <nav className="bg-blue-900 border border-b-white p-4 sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center text-white font-mono">
+        <div className="flex items-center  justify-start text-white font-mono">
           <img
             src="agritech.jpg"
             alt="Agritech Icon"
@@ -92,8 +92,16 @@ const Navbar = () => {
                 Fertilizer
               </Link>
             </li>
+            <li className="text-center">
+              <Link
+                to="/disease-prediction"
+                className="block text-blue-700 font-semibold text-sm px-4 py-2 hover:bg-blue-100"
+              >
+                Disease
+              </Link>
+            </li>
           </ul>
-          <div className="hidden md:flex">
+          <div className="hidden md:flex pl-8">
             <Link
               to="/"
               className="text-white font-semibold text-lg md:mr-4 bg-green-500 hover:bg-green-400 hover:text-white px-4 py-2 rounded-lg transition duration-300"
@@ -117,6 +125,12 @@ const Navbar = () => {
               className="text-white font-semibold text-lg md:mr-4 bg-green-500 hover:bg-green-400 hover:text-white px-4 py-2 rounded-lg transition duration-300"
             >
               Fertilizer
+            </Link>
+            <Link
+              to="/disease-prediction"
+              className="text-white font-semibold text-lg md:mr-4 bg-green-500 hover:bg-green-400 hover:text-white px-4 py-2 rounded-lg transition duration-300"
+            >
+              Disease
             </Link>
           </div>
         </div>

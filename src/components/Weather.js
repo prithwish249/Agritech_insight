@@ -62,7 +62,7 @@ const Weather = () => {
   }, []);
 
   return (
-    <div className="h-[645px] flex items-center justify-center relative">
+    <div className="h-screen flex items-center justify-center relative">
       <video
         autoPlay
         loop

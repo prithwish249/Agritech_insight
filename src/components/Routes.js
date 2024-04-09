@@ -6,6 +6,7 @@ import Home from './Home';
 import Weather from './Weather';
 import CropPrediction from './CropPrediction';
 import FertilizerPrediction from './FertilizerPrediction';
+import DiseasePrediction from './DiseasePrediction';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         <Route path="/weather" element={<Weather />} />
         <Route path="/crop-prediction" element={<CropPrediction />} />
         <Route path="/fertilizer-prediction" element={<FertilizerPrediction />} />
+        <Route path="/disease-prediction" element={<DiseasePrediction />} />
       </Routes>
     </BrowserRouter>
   );

@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <div className="relative h-[645px]">
+    <div className="relative h-screen">
       <video
         autoPlay
         loop
