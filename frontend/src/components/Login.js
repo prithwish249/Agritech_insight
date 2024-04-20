@@ -60,7 +60,7 @@ function Login() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-blue-100 p-8 rounded-xl shadow-lg w-full max-w-sm">
+      <div className="bg-blue-100 p-8 rounded-xl shadow-lg border border-gray-400 w-full max-w-sm">
         <div className="flex items-center pl-6  justify-start font-bold  text-black ">
           <img
             src="agritech.jpg"
@@ -111,7 +111,7 @@ function Login() {
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder="Enter your location"
+            placeholder="Enter your location, State name"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -126,11 +126,11 @@ function Login() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
-              className="flex-1 border border-gray-300 rounded-l px-3 py-2 focus:outline-none focus:border-blue-500"
+              className="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             />
             <button
               onClick={handleSendOTP}
-              className="bg-blue-500 text-white px-4 py-2 rounded-r"
+              className="bg-blue-500 ml-1 text-white px-4 py-2 rounded"
             >
               Send OTP
             </button>
