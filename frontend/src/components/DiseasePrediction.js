@@ -39,7 +39,8 @@ const DiseasePrediction = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="p-4 bg-blue-50  border border-black rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-4"> Rice-Disease Prediction</h2>
+        <h2 className="text-2xl font-bold mb-2"> Rice-Disease Prediction</h2>
+        <p className="text-md font-bold font-mono text-red-500 mb-4"> Only jpeg image format is supported. </p>
         <div className="mb-4">
           <input
             type="file"
@@ -58,7 +59,7 @@ const DiseasePrediction = () => {
         {!error && prediction && (
           <div className="mt-4">
             <p className="text-center text-xl font-bold font-mono text-green-700">
-              Recommended Crop: {prediction}
+              Predicted Rice-disease : {prediction}
             </p>
           </div>
         )}
