@@ -58,10 +58,10 @@ const Home = () => {
               information and innovation. Our vision is to revolutionize the
               agricultural industry through technology and sustainable
               practices.
-              <h1 className="text-blue-700 mt-2  md:text-sm sm:text-sm lg:text-lg font-bold">
-                Join us in shaping the future of farming ......
-              </h1>
             </p>
+            <h1 className="text-blue-700 mt-2  md:text-sm sm:text-sm lg:text-lg font-bold">
+              Join us in shaping the future of farming ......
+            </h1>
             <div className="mt-4 flex justify-center items-center">
               <button
                 onClick={toggleForm}
@@ -113,7 +113,7 @@ const Home = () => {
                 </svg>
               </button>
               <form
-                netlify
+                netlify=""
                 name="contact"
                 onSubmit={sendEmail}
                 className="lg:w-full md:w-full flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0"

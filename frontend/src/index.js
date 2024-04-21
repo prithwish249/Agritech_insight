@@ -1,15 +1,16 @@
 // src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Routes from './components/Routes'; // Updated import path
-import './index.css'; // You can add your global styles here
+import { createRoot } from 'react-dom/client';
+import Routes from './components/Routes'; 
+import './index.css'; 
 
-ReactDOM.render(
+
+createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Routes />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
 
 
 
