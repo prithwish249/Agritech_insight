@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
-function Login() {
+function Login({ onLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
@@ -27,12 +27,11 @@ function Login() {
   };
 
   const handleLogin = async () => {
-    
     if (!name.trim() || !email.trim() || !location.trim() || !otp.trim()) {
       setMessage("Please fill in all fields");
       return;
     }
-  
+
     try {
       const response = await axios.post("http://localhost:5000/api/login", {
         email,
@@ -40,19 +39,20 @@ function Login() {
         location,
         otp,
       });
-  
-      
+
       if (response.data.success) {
-        setIsLoggedIn(true); 
+        // Trigger the onLogin callback
+        onLogin();
+        // Update the isLoggedIn state in the parent component
+        setIsLoggedIn(true);
       } else {
-        setMessage(response.data.success); 
+        setMessage(response.data.success);
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      setMessage("Failed to login for Invalid OTP"); 
+      setMessage("Failed to login for Invalid OTP");
     }
   };
-  
 
   if (isLoggedIn) {
     return <Navigate to="/" />;
