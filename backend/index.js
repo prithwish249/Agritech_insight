@@ -25,24 +25,36 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-// Routes
+// Endpoint for sending OTP or registering new user
 app.post("/api/send-otp", async (req, res) => {
   const { email } = req.body;
-  const otp = generateOTP();
 
   try {
-    // Save the OTP to the user's document in the database
-    await User.findOneAndUpdate({ email }, { otp });
-    
+    let user = await User.findOne({ email });
+
+    // If user doesn't exist, create a new instance
+    if (!user) {
+      const otp = generateOTP();
+      user = new User({ email, otp });
+      await user.save();
+    } else {
+      // Generate new OTP for existing user
+      const otp = generateOTP();
+      user.otp = otp;
+      await user.save();
+    }
+
     // Send the OTP via email
-    await sendOTP(email, otp);
-    
+    await sendOTP(email, user.otp);
+
     res.status(200).json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).json({ success: false, error: "Failed to send OTP" });
   }
 });
+
+
 
 
 app.post("/api/login", async (req, res) => {
