@@ -110,7 +110,7 @@ const DiseasePrediction = () => {
               Cause:<p className="text-black ">{cause}</p>
             </h3>
             <h3 className="text-xl font-bold font-mono text-blue-700 mt-4">
-              Removal Steps:<p className="text-black ">{removal}</p>
+              Control Mechanism:<p className="text-black ">{removal}</p>
             </h3>
           </div>
         )}
