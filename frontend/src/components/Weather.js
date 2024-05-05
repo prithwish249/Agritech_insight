@@ -30,7 +30,7 @@ const Weather = () => {
 
           try {
             const response = await fetch(
-              `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=<Input api ID>
+              `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=56a1ed2611bd3972271b413653c7bb8d`
             );
 
             if (!response.ok) {
