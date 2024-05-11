@@ -98,8 +98,9 @@ const DiseasePrediction = () => {
         </div>
         {!error && prediction && (
           <div className="mt-4">
-            <p className="text-center text-xl font-bold font-mono text-green-700">
-              Predicted Rice-disease : <p className="text-black ">{prediction}</p>
+            <p className=" text-xl font-bold font-mono text-green-700">
+              Predicted Rice-disease :{" "}
+              <p className="text-black  inline">{prediction}</p>
             </p>
           </div>
         )}
@@ -107,10 +108,10 @@ const DiseasePrediction = () => {
         {cause && removal && (
           <div className="mt-4">
             <h3 className="text-xl font-bold font-mono text-red-700">
-              Cause:<p className="text-black ">{cause}</p>
+              Cause: <p className="text-black inline">{cause}</p>
             </h3>
             <h3 className="text-xl font-bold font-mono text-blue-700 mt-4">
-              Control Mechanism:<p className="text-black ">{removal}</p>
+              Control Mechanism:<p className="text-black inline ">{removal}</p>
             </h3>
           </div>
         )}
