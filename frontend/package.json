@@ -10,6 +10,7 @@
     "axios": "^1.6.8",
     "countries-list": "^3.1.0",
     "emailjs": "^4.0.3",
+    "html2pdf.js": "^0.10.1",
     "image-conversion": "^2.1.1",
     "image-to-base64": "^2.2.0",
     "react": "^18.2.0",

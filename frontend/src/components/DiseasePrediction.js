@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
+import html2pdf from "html2pdf.js";
 
 const DiseasePrediction = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [prediction, setPrediction] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const resultRef = useRef();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -71,13 +73,26 @@ const DiseasePrediction = () => {
     }
   };
 
+  const handleDownload = () => {
+    const element = resultRef.current;
+    const options = {
+      margin: [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left
+      filename: "rice-disease-prediction.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    html2pdf().from(element).set(options).save();
+  };
+
   // Get cause and removal info based on prediction
   const { cause, removal } = getDiseaseInfo();
 
   return (
     <div className="container mx-auto p-4">
-      <div className="p-4 bg-blue-50  border border-black rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-2"> Rice-Disease Prediction</h2>
+      <div className="p-4 bg-blue-50 border border-black rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-2">Rice-Disease Prediction</h2>
         <p className="text-md font-bold font-mono text-red-500 mb-4">
           Only jpeg image format is supported.
         </p>
@@ -96,31 +111,47 @@ const DiseasePrediction = () => {
             {loading ? "Predicting..." : "Predict"}
           </button>
         </div>
+        <div
+          ref={resultRef}
+          className="p-4 bg-white border rounded-lg shadow-lg"
+        >
+          {!error && prediction && (
+            <div className="mt-4">
+              <p className="text-xl font-bold font-mono text-green-700">
+                Predicted Rice-disease:{" "}
+                <span className="text-black inline">{prediction}</span>
+              </p>
+            </div>
+          )}
+
+          {cause && removal && (
+            <div className="mt-4">
+              <h3 className="text-xl font-bold font-mono text-red-700">
+                Cause: <span className="text-black inline">{cause}</span>
+              </h3>
+              <h3 className="text-xl font-bold font-mono text-blue-700 mt-4">
+                Control Mechanism:{" "}
+                <span className="text-black inline">{removal}</span>
+              </h3>
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-4">
+              <p className="text-center font-mono font-bold text-red-500">
+                {error}
+              </p>
+            </div>
+          )}
+        </div>
         {!error && prediction && (
           <div className="mt-4">
-            <p className=" text-xl font-bold font-mono text-green-700">
-              Predicted Rice-disease :{" "}
-              <p className="text-black  inline">{prediction}</p>
-            </p>
-          </div>
-        )}
-
-        {cause && removal && (
-          <div className="mt-4">
-            <h3 className="text-xl font-bold font-mono text-red-700">
-              Cause: <p className="text-black inline">{cause}</p>
-            </h3>
-            <h3 className="text-xl font-bold font-mono text-blue-700 mt-4">
-              Control Mechanism:<p className="text-black inline ">{removal}</p>
-            </h3>
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-4">
-            <p className="text-center font-mono font-bold text-red-500">
-              {error}
-            </p>
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+              onClick={handleDownload}
+            >
+              Download as PDF
+            </button>
           </div>
         )}
       </div>

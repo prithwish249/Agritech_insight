@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
+import html2pdf from "html2pdf.js";
 
 const FertilizerPrediction = () => {
   const [temperature, setTemperature] = useState("");
@@ -12,6 +13,45 @@ const FertilizerPrediction = () => {
   const [phosphorus, setPhosphorus] = useState("");
   const [fertilizerResult, setFertilizerResult] = useState("");
   const [error, setError] = useState("");
+  const componentRef = useRef();
+  const downloadButtonRef = useRef();
+
+  const handleDownloadPDF = () => {
+    const input = componentRef.current;
+    const downloadButton = downloadButtonRef.current;
+
+    // Hide the download button
+    if (downloadButton) {
+      downloadButton.style.display = "none";
+    }
+
+    const opt = {
+      margin: 0.5,
+      filename: "fertilizer_prediction.pdf",
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      html2canvas: { scale: 2 },
+    };
+
+    html2pdf()
+      .from(input)
+      .set(opt)
+      .toPdf()
+      .get("pdf")
+      .then((pdf) => {
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+          pdf.setPage(i);
+          pdf.text(0.5, 0.5, `Page ${i} of ${totalPages}`);
+        }
+      })
+      .save()
+      .finally(() => {
+        // Restore the download button
+        if (downloadButton) {
+          downloadButton.style.display = "block";
+        }
+      });
+  };
 
   const handleSoilTypeChange = (e) => {
     setSoilType(e.target.value);
@@ -51,7 +91,7 @@ const FertilizerPrediction = () => {
         parseFloat(phosphorus) > 100
       ) {
         setError(
-          " Be careful! Humidity, Moisture, Nitrogen,Potassium and Phosphorus must have values between 0 and 100."
+          "Be careful! Humidity, Moisture, Nitrogen, Potassium, and Phosphorus must have values between 0 and 100."
         );
         return;
       }
@@ -101,14 +141,12 @@ const FertilizerPrediction = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl  font-mono font-semibold text-center mb-4">
+    <div className="container mx-auto p-4" ref={componentRef}>
+      <h1 className="text-3xl font-mono font-semibold text-center mb-4">
         FERTILIZER PREDICTION
       </h1>
       <div className="bg-green-300 border border-blue-700 p-6 rounded-lg shadow-lg">
         <div className="grid grid-cols-2 gap-4">
-          {/* Input fields for fertilizer prediction */}
-          {/* Temperature */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -125,7 +163,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setTemperature(e.target.value)}
             />
           </div>
-          {/* Humidity */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -142,7 +179,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setHumidity(e.target.value)}
             />
           </div>
-          {/* Moisture */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -159,7 +195,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setMoisture(e.target.value)}
             />
           </div>
-          {/* Soil Type */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -181,7 +216,6 @@ const FertilizerPrediction = () => {
               <option value="Red">Red</option>
             </select>
           </div>
-          {/* Crop Type */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -209,8 +243,6 @@ const FertilizerPrediction = () => {
               <option value="Ground Nuts">Ground Nuts</option>
             </select>
           </div>
-
-          {/* Nitrogen */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -227,7 +259,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setNitrogen(e.target.value)}
             />
           </div>
-          {/* Potassium */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -244,7 +275,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setPotassium(e.target.value)}
             />
           </div>
-          {/* Phosphorus */}
           <div className="col-span-2 sm:col-span-1">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -261,7 +291,6 @@ const FertilizerPrediction = () => {
               onChange={(e) => setPhosphorus(e.target.value)}
             />
           </div>
-          {/* Submit Button */}
           <div className="col-span-2">
             <button
               className="bg-blue-500 border border-black hover:bg-blue-600 text-white p-3 rounded-lg w-[60%] sm:w-64 mx-auto block"
@@ -272,15 +301,23 @@ const FertilizerPrediction = () => {
           </div>
         </div>
       </div>
-      {/* Render fertilizer prediction result */}
       {!error && fertilizerResult && (
-        <div className="mt-4">
-          <p className="text-center text-xl font-bold font-mono text-green-700">
-            Recommended Fertilizer: {fertilizerResult}
-          </p>
-        </div>
+        <>
+          <div className="mt-4">
+            <p className="text-center text-xl font-bold font-mono text-green-700">
+              Recommended Fertilizer: {fertilizerResult}
+            </p>
+          </div>
+          <div className="text-center" ref={downloadButtonRef}>
+            <button
+              onClick={handleDownloadPDF}
+              className="bg-green-500 text-white hover:bg-green-600  py-2 px-4 rounded mt-4"
+            >
+              Download as PDF
+            </button>
+          </div>
+        </>
       )}
-      {/* Render error message if there is an error */}
       {error && (
         <div className="mt-4">
           <p className="text-center font-mono font-bold text-red-500">

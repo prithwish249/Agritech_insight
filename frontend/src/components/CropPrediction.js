@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState ,useRef} from "react";
 import axios from "axios";
-
+import html2pdf from "html2pdf.js";
 import appleImage from "../images/apple.jpg";
 import papayaImage from "../images/papaya.jpg";
 import bananaImage from "../images/banana.jpg";
@@ -34,7 +34,22 @@ const CropPrediction = () => {
   const [temperature, setTemperature] = useState(""); // New input state for temperature
   const [cropResult, setCropResult] = useState("");
   const [error, setError] = useState("");
+  const componentRef = useRef();
 
+  const handleDownloadPDF = () => {
+    html2pdf(componentRef.current, {
+      margin: 0.5,
+      filename: "crop_prediction.pdf",
+      jsPDF: {
+        unit: "in",
+        format: "A4",
+        orientation: "portrait",
+      },
+      html2canvas: {
+        scale: 2,
+      },
+    });
+  };
   const handleSubmit = async () => {
     try {
       if (
@@ -110,7 +125,7 @@ const CropPrediction = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4"ref={componentRef}>
       <h1 className="text-3xl  font-mono font-semibold text-center  mb-4">
         CROP PREDICTION
       </h1>
@@ -239,7 +254,7 @@ const CropPrediction = () => {
       </div>
       {!error && cropResult && (
         <div className="mt-4">
-          <p className="text-center text-xl font-bold font-mono text-green-700">
+          <p className="text-center text-xl pb-4 font-bold font-mono text-green-700">
             Recommended Crop:{" "}
             {cropResult.charAt(0).toUpperCase() + cropResult.slice(1)}
           </p>
@@ -306,6 +321,16 @@ const CropPrediction = () => {
           <p className="text-center font-mono font-bold text-red-500">
             {error}
           </p>
+        </div>
+      )}
+       {!error && cropResult && (
+        <div className="mt-4 flex justify-center">
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            onClick={handleDownloadPDF}
+          >
+            Download as PDF
+          </button>
         </div>
       )}
     </div>
