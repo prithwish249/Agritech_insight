@@ -1,13 +1,12 @@
 const nodemailer = require("nodemailer");
+
 async function sendOTP(email, otp) {
   try {
     let transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: false, // true for 2525, false for other ports
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
+        pass: process.env.EMAIL_PASSWORD, // Your Gmail App Password here
       },
     });
 
@@ -16,6 +15,12 @@ async function sendOTP(email, otp) {
       to: email,
       subject: "Your OTP for login",
       text: `Your OTP for login in Agritech Insight is ${otp}.`,
+      attachments: [
+        {
+          filename: "agritech.jpg", 
+          path: "./utils/agritech.jpg", 
+        },
+      ],
     };
 
     // Send the email
@@ -31,4 +36,5 @@ async function sendOTP(email, otp) {
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
 module.exports = { generateOTP, sendOTP };
