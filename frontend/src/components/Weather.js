@@ -141,7 +141,7 @@ const Weather = () => {
                 Humidity: {weatherData.main.humidity}%
               </li>
               <li className="text-black font-mono font-semibold text-lg mb-2">
-                Wind Speed: {(weatherData.wind.speed / 1000).toFixed(3)} Km/s
+                Wind Speed: {(weatherData.wind.speed / 1000).toFixed(3)} Km/Hr
               </li>
               <li className="text-black  font-mono font-semibold text-lg mb-2">
                 Probability of Rain:{" "}
