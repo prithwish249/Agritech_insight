@@ -54,12 +54,9 @@ app.post("/api/send-otp", async (req, res) => {
   }
 });
 
-
-
-
 app.post("/api/login", async (req, res) => {
   const { email, name, location, otp } = req.body;
-  
+
   try {
     // Find the user by email and OTP
     const user = await User.findOne({ email, otp });
@@ -80,7 +77,6 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ success: false, error: "Failed to login" });
   }
 });
-
 
 // Start server
 const PORT = process.env.PORT || 5000;
